@@ -1,0 +1,75 @@
+<div class="container mt-5 text-white">
+    <br>
+    <form [formGroup]="myForm" (ngSubmit)="guardarPersona()">
+        <h1 class="text-center">Formulario</h1>
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" class="form-control" id="name" formControlName="name">
+            <div *ngIf="myForm.get('name')?.invalid && (myForm.get('name')?.dirty || myForm.get('name')?.touched)"
+                class="invalid-feedback">
+                <div *ngIf="myForm.get('name')?.hasError('required')">El name es obligatorio</div>
+                <div *ngIf="myForm.get('name')?.hasError('minlength')">El name debe tener al menos
+                    {{myForm.get('name')?.getError('minlength').requiredLength}} caracteres</div>
+                <div *ngIf="myForm.get('name')?.hasError('maxlength')">El name no debe tener más de
+                    {{myForm.get('name')?.getError('maxlength').requiredLength}} caracteres</div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastName">lastName</label>
+            <input type="text" class="form-control" id="lastName" formControlName="lastName">
+            <div *ngIf="myForm.get('lastName')?.invalid && (myForm.get('lastName')?.dirty || myForm.get('lastName')?.touched)"
+                class="invalid-feedback">
+                <div *ngIf="myForm.get('lastName')?.hasError('required')">El lastName es obligatorio</div>
+                <div *ngIf="myForm.get('lastName')?.hasError('minlength')">El lastName debe tener al menos
+                    {{myForm.get('lastName')?.getError('minlength').requiredLength}} caracteres</div>
+                <div *ngIf="myForm.get('lastName')?.hasError('maxlength')">El lastName no debe tener más de
+                    {{myForm.get('lastName')?.getError('maxlength').requiredLength}} caracteres</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone">Teléfono</label>
+            <input type="text" class="form-control" id="phone" formControlName="phone">
+            <div *ngIf="myForm.get('phone')?.invalid && (myForm.get('phone')?.dirty || myForm.get('phone')?.touched)"
+                class="invalid-feedback">
+                <div *ngIf="myForm.get('phone')?.hasError('required')">El teléfono es obligatorio</div>
+                <div *ngIf="myForm.get('phone')?.hasError('pattern')">El teléfono debe tener un formato válido (por
+                    ejemplo: +573186077243</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="comuna">Comuna</label>
+            <select class="form-control" id="comuna" formControlName="comuna">
+                <option *ngFor="let comuna of comunas" [value]="comuna.comuna.name">{{comuna.comuna.name}}</option>
+            </select>
+            <div *ngIf="myForm.get('comuna')?.invalid && (myForm.get('comuna')?.dirty || myForm.get('comuna')?.touched)"
+                class="invalid-feedback">
+                <div *ngIf="myForm.get('comuna')?.hasError('required')">La comuna es obligatoria</div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center"> <button type="submit" class="mb-3 btn btn-primary"
+                [disabled]="myForm.invalid">Guardar</button></div>
+
+    </form>
+</div>
+
+<div class="container text-center mt-4">
+    <table>
+        <thead class="text-white text-center">
+            <tr>
+                <th class="col-3">Nombre</th>
+                <th class="col-3">Apellido</th>
+                <th class="col-3">Teléfono</th>
+                <th class="col-3">Comuna</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{ registro.name}}</td>
+                <td>{{ registro.lastName }}</td>
+                <td>{{ registro.phone }}</td>
+                <td class="col-5">{{ registro.comuna }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
